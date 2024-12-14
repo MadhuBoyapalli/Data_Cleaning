@@ -16,7 +16,7 @@ SELECT * FROM layoffs_stagging2;
 --4)Correct Inconsistent Data
 --5)Delete Unawanted Columns and Rows
 
-
+-----------------------------------------------------------------------
 --->(1)Handling Missing Values
 
 --I have spot null's in 3 columns we need to replace that 0.
@@ -44,7 +44,9 @@ FROM layoffs_stagging2
 UPDATE layoffs_stagging2
 SET percentage_laid_off=ISNULL(percentage_laid_off,0)
 
+------------------------------------------------------------------------
 
+	
 --->let's check for duplicates
 
 --->(2)Remove Duplicates
@@ -98,7 +100,7 @@ FROM layoffs_stagging2;
 DELETE FROM layoffs_stagging_data
 WHERE row_num >1
 
-
+------------------------------------------------------------------------
 
 --->3)Standardzing Text 
 
@@ -131,7 +133,7 @@ UPDATE  layoffs_stagging2
 SET country=TRIM(TRAILING '.' FROM  country)
 WHERE country LIKE 'United States%'
 
-
+---------------------------------------------------------------------------
 
 --->(4)Correct Inconsistent Data
 
@@ -157,6 +159,8 @@ SET  percentage_laid_off=CONCAT(percentage_laid_off,'%')
 WHERE percentage_laid_off !=0
 
 
+----------------------------------------------------------------------------
+
 --Alter Table
 
 --Change data types as per requirement.
@@ -165,6 +169,8 @@ ALTER TABLE layoffs_stagging2
 ALTER COLUMN [percentage_laid_off]  VARCHAR(15)
 
 
+----------------------------------------------------------------------------------
+	
 -->(5)Delete Unawanted Columns and Rows
 
 --Delete Row
@@ -177,6 +183,7 @@ WHERE total_laid_off IS NULL AND percentage_laid_off IS NULL;
 
 COMMIT TRANSACTION
 
+	
 -- Delete column
 --finally,we need to delete  row_numb column that we have added to remove duplicates.
 
@@ -188,8 +195,3 @@ DROP COLUMN row_num;
 COMMIT TRANSACTION
 
 
-select * from  layoffs_stagging_data
-order by company asc;
-
-select * from [dbo].[layoffs]
-order by company asc;
