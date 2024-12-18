@@ -22,11 +22,11 @@ SELECT * FROM layoffs_stagging2;
 --I have spot null's in 3 columns we need to replace that 0.
 
 SELECT *,
-ISNULL(total_laid_off,'0')
+ISNULL(total_laid_off,0)
 FROM layoffs_stagging2
 
 UPDATE layoffs_stagging2
-SET total_laid_off=ISNULL(total_laid_off,'0')
+SET total_laid_off=ISNULL(total_laid_off,0)
 
 
 SELECT ISNULL(funds_raised_millions,0)
